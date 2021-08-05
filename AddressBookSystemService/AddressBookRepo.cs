@@ -60,5 +60,36 @@ namespace AddressBookSystemService
                 this.sqlconnection.Close();
             }
         }
+
+        // Method to Update data in database..................
+        public bool UpdateTables()
+        {
+            string query = @"update AddressBookTable set PhoneNumber = 2345688996 where Firstname = 'Surya'";
+            using (this.sqlconnection)
+            {
+                try
+                {
+                    this.sqlconnection.Open();
+                    SqlCommand command = new SqlCommand(query, this.sqlconnection);
+                    int updatedRows = command.ExecuteNonQuery();
+                    if (updatedRows != 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception exception)
+                {
+                    throw new Exception(exception.Message);
+                }
+                finally
+                {
+                    this.sqlconnection.Close();
+                }
+            }
+        }
     }
 }
