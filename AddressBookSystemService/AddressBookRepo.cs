@@ -178,7 +178,7 @@ namespace AddressBookSystemService
             }
         }
 
-        //
+        // Method to Add New Contact To DataBase .................
         public bool AddContact(Contact contact)
         {
             try

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AddressBookSystemService
 {
@@ -21,7 +22,19 @@ namespace AddressBookSystemService
             contact.emailId = "Rahuly@gmail.com";
             contact.contactType = "Professional";
             contact.addressBookName = "Office";
+            // Add New Contact To DataBase .................
             addressBookRepo.AddContact(contact);
+
+            ThreadOperations threadOperations = new ThreadOperations();
+            // Created a Contact List......................
+            List<Contact> listContacts = new List<Contact>();
+            // Adding Contact to Contact List..................
+            listContacts.Add(contact);
+
+            // Method to Add List of Contacts To DB Without Thread..................
+            threadOperations.AddContactListToDBWithoutThread(listContacts);
+            // Method to Add List of Contacts To DB With Thread..................
+            threadOperations.AddContactListToDBWithThread(listContacts);
 
         }
     }
