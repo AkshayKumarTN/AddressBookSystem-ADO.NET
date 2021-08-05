@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -175,6 +176,46 @@ namespace AddressBookSystemService
             {
                 this.sqlconnection.Close();
             }
+        }
+
+        //
+        public bool AddContact(Contact contact)
+        {
+            try
+            {
+                using (this.sqlconnection)
+                {
+                    SqlCommand sqlCommand = new SqlCommand("spAddContact", this.sqlconnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@FirstName", contact.firstName);
+                    sqlCommand.Parameters.AddWithValue("@LastName", contact.lastName);
+                    sqlCommand.Parameters.AddWithValue("@Address", contact.address);
+                    sqlCommand.Parameters.AddWithValue("@City", contact.city);
+                    sqlCommand.Parameters.AddWithValue("@State", contact.state);
+                    sqlCommand.Parameters.AddWithValue("@Zip", contact.zip);
+                    sqlCommand.Parameters.AddWithValue("@PhoneNumber", contact.phoneNumber);
+                    sqlCommand.Parameters.AddWithValue("@Email", contact.emailId);
+                    sqlCommand.Parameters.AddWithValue("@RelationType", contact.contactType);
+                    sqlCommand.Parameters.AddWithValue("@AddressBookName", contact.addressBookName);
+                    this.sqlconnection.Open();
+                    var result = sqlCommand.ExecuteNonQuery();
+                    this.sqlconnection.Close();
+                    if (result != 0)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            finally
+            {
+                this.sqlconnection.Close();
+            }
+            return false;
         }
     }
 }
