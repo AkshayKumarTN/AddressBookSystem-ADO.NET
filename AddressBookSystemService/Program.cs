@@ -9,8 +9,8 @@ namespace AddressBookSystemService
             Console.WriteLine(" AddressBook System Service ");
             Console.WriteLine("***********************************************************************");
             AddressBookRepo addressBookRepo = new AddressBookRepo();
-            // Retriving Contact In A Particular Period From DB........................
-            addressBookRepo.GetDataInParticularRange();
+            // Retriving Count of Contact By State Or City........................
+            addressBookRepo.CountOfContacts();
            
         }
     }

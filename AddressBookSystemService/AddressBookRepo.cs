@@ -139,5 +139,42 @@ namespace AddressBookSystemService
                 this.sqlconnection.Close();
             }
         }
+
+        // Method to Count Contact By State Or City........................
+        public void CountOfContacts()
+        {
+            SqlConnection sqlconnection = new SqlConnection(connectionString);
+            try
+            {
+                using (this.sqlconnection)
+                {
+                    string query = @"select State, COUNT(State) from AddressBookTable group by State";
+                    SqlCommand command = new SqlCommand(query, sqlconnection);
+                    sqlconnection.Open();
+                    SqlDataReader dataReader = command.ExecuteReader();
+                    if (dataReader.HasRows)
+                    {
+                        while (dataReader.Read())
+                        {
+                            Console.Write(dataReader.GetString(0) + "\t" + dataReader.GetInt32(1));
+                            Console.WriteLine("\n");
+                        }
+                        sqlconnection.Close();
+                    }
+                    else
+                    {
+                        Console.WriteLine("No data found");
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+            finally
+            {
+                this.sqlconnection.Close();
+            }
+        }
     }
 }
