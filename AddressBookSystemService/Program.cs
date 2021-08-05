@@ -9,12 +9,9 @@ namespace AddressBookSystemService
             Console.WriteLine(" AddressBook System Service ");
             Console.WriteLine("***********************************************************************");
             AddressBookRepo addressBookRepo = new AddressBookRepo();
-            // Update data in database........................
-            bool status = addressBookRepo.UpdateTables();
-            if (status)
-                Console.WriteLine(" Updated Successfully");
-            else
-                Console.WriteLine(" Update UnSuccessfully");
+            // Retriving Contact In A Particular Period From DB........................
+            addressBookRepo.GetDataInParticularRange();
+           
         }
     }
 }
